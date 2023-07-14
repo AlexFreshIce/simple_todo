@@ -1,16 +1,17 @@
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { Paper, Typography } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
+import { Paper } from "@mui/material";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import { useState } from "react";
+import { FC, useState } from "react";
+import { ItemTodo } from "./ItemTodo";
 
-export default function ListTodo() {
+export const ListTodo: FC = () => {
   const [checked, setChecked] = useState([0]);
 
-  const items = [0, 1, 2, 3];
+  const items = [
+    "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Quo nisi ipsa provident eveniet dignissimos exercitationem hic dolorum sit officiis officia.",
+    "1",
+    "2",
+    "3",
+  ];
   return (
     <Paper
       elevation={3}
@@ -19,23 +20,18 @@ export default function ListTodo() {
       }}
     >
       <List>
-        {items.map((value, index) => {
+        {items.map((value: string, index: number) => {
+          const itemID = value[0] + index;
           return (
-            <ListItem divider={index !== items.length - 1}>
-              <Checkbox />
-              <Typography sx={{ flexGrow: 1 }} key={index}>
-                {value}
-              </Typography>
-              <IconButton edge="end" aria-label="delete" color="primary">
-                <EditOutlinedIcon />
-              </IconButton>{" "}
-              <IconButton edge="end" aria-label="delete" color="primary">
-                <DeleteOutlinedIcon />
-              </IconButton>
-            </ListItem>
+            <ItemTodo
+              key={itemID}
+              value={value}
+              itemID={itemID}
+              isLastItem={index === items.length - 1}
+            />
           );
         })}
       </List>
     </Paper>
   );
-}
+};

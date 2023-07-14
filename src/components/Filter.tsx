@@ -1,7 +1,7 @@
 import { Tab, Tabs } from "@mui/material";
-import { useState } from "react";
+import { FC, useState } from "react";
 
-export default function Filter() {
+export const Filter: FC = () => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -22,4 +22,4 @@ export default function Filter() {
       <Tab label="Done" />
     </Tabs>
   );
-}
+};

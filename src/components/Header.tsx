@@ -1,11 +1,12 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
+import { FC } from "react";
 
-export default function Header() {
+export const Header: FC = () => {
   return (
     <AppBar
       position="static"
       sx={{
-        mb: "2rem"
+        mb: "2rem",
       }}
     >
       <Toolbar>
@@ -20,6 +21,4 @@ export default function Header() {
       </Toolbar>
     </AppBar>
   );
-}
-
-
+};

@@ -1,6 +1,7 @@
 import { Button, Grid, Paper, TextField } from "@mui/material";
+import { FC } from "react";
 
-export default function InputTodo() {
+export const InputTodo: FC = () => {
   return (
     <Paper
       elevation={3}
@@ -32,4 +33,4 @@ export default function InputTodo() {
       </Grid>
     </Paper>
   );
-}
+};
