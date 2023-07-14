@@ -1,9 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Checkbox, IconButton, ListItem } from "@mui/material";
 import { ChangeEvent, FC, useRef, useState } from "react";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store";
+import { todoRemove } from "../store/todoSlice";
 
 type ItemTodoType = {
   value: string;
@@ -14,6 +17,7 @@ type ItemTodoType = {
 export const ItemTodo: FC<ItemTodoType> = ({ value, itemID, isLastItem }) => {
   const [todoValue, setTodoValue] = useState(value);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
 
   const onEditButtonClick = () => {
     if (textareaRef && textareaRef.current) {
@@ -36,11 +40,12 @@ export const ItemTodo: FC<ItemTodoType> = ({ value, itemID, isLastItem }) => {
   };
 
   const onDeleteButtonClick = () => {
-    console.log("delete");
+    console.log("delete", itemID);
+    dispatch(todoRemove(itemID));
   };
 
   return (
-    <ListItem divider={!isLastItem}>
+    <ListItem divider={!isLastItem} sx={{ pl: "0" }}>
       <Checkbox />
       <textarea
         ref={textareaRef}
@@ -61,11 +66,22 @@ export const ItemTodo: FC<ItemTodoType> = ({ value, itemID, isLastItem }) => {
         onChange={onTextAreaChange}
         onBlur={onTextAreaBlur}
       ></textarea>
-      <IconButton edge="end" aria-label="delete" color="primary">
-        <EditOutlinedIcon onClick={onEditButtonClick}> </EditOutlinedIcon>
-      </IconButton>{" "}
-      <IconButton edge="end" aria-label="delete" color="primary">
-        <DeleteOutlinedIcon onClick={onDeleteButtonClick}> </DeleteOutlinedIcon>
+      <IconButton
+        edge="end"
+        aria-label="delete"
+        color="primary"
+        sx={{ mr: "0.2rem" }}
+        onClick={onEditButtonClick}
+      >
+        <EditOutlinedIcon />
+      </IconButton>
+      <IconButton
+        edge="end"
+        aria-label="delete"
+        color="primary"
+        onClick={onDeleteButtonClick}
+      >
+        <DeleteOutlinedIcon />
       </IconButton>
     </ListItem>
   );

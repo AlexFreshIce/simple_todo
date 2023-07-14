@@ -1,7 +1,31 @@
 import { Button, Grid, Paper, TextField } from "@mui/material";
-import { FC } from "react";
+import { ChangeEvent, FC, useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store";
+import { todoAdd } from "../store/todoSlice";
 
 export const InputTodo: FC = () => {
+  const [inputValue, setInputValue] = useState("");
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const onButtonClick = () => {
+    if (inputValue) {
+      dispatch(todoAdd(inputValue));
+      setInputValue("");
+    }
+  };
+
+  const onInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === "Enter" && inputValue) {
+      dispatch(todoAdd(inputValue));
+      setInputValue("");
+    }
+  };
+
   return (
     <Paper
       elevation={3}
@@ -15,18 +39,14 @@ export const InputTodo: FC = () => {
           <TextField
             variant="standard"
             placeholder="Add Todo here"
-            // value={inputValue}
-            // onChange={onInputChange}
-            // onKeyPress={onInputKeyPress}
+            value={inputValue}
+            onChange={onInputChange}
+            onKeyDown={onInputKeyDown}
             fullWidth
           />
         </Grid>
         <Grid xs={2} item>
-          <Button
-            fullWidth
-            variant="outlined"
-            // onClick={onButtonClick}
-          >
+          <Button fullWidth variant="outlined" onClick={onButtonClick}>
             Add
           </Button>
         </Grid>
