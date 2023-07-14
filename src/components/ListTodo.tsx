@@ -7,7 +7,8 @@ import { ItemTodo } from "./ItemTodo";
 
 export const ListTodo: FC = () => {
 
-  const todos = useSelector((state: RootState) => state.todoSlice.todos);
+  const todos = useSelector((state: RootState) => state.todos);
+
   return !todos.length ? null : (
     <Paper
       elevation={3}

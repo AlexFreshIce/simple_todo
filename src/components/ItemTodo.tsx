@@ -6,7 +6,7 @@ import { Checkbox, IconButton, ListItem } from "@mui/material";
 import { ChangeEvent, FC, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
-import { todoRemove } from "../store/todoSlice";
+import { todoEdit, todoRemove } from "../store/todoSlice";
 
 type ItemTodoType = {
   value: string;
@@ -36,11 +36,11 @@ export const ItemTodo: FC<ItemTodoType> = ({ value, itemID, isLastItem }) => {
   const onTextAreaBlur = () => {
     if (textareaRef && textareaRef.current) {
       textareaRef.current.readOnly = true;
+      dispatch(todoEdit({id: itemID, value:todoValue}))
     }
   };
 
   const onDeleteButtonClick = () => {
-    console.log("delete", itemID);
     dispatch(todoRemove(itemID));
   };
 
