@@ -38,7 +38,7 @@ export const InputTodo: FC = () => {
       }}
     >
       <Grid container spacing={2}>
-        <Grid xs={10} item>
+        <Grid xs item flexShrink={1}>
           <TextField
             variant="standard"
             placeholder="Add Todo here"
@@ -48,7 +48,7 @@ export const InputTodo: FC = () => {
             fullWidth
           />
         </Grid>
-        <Grid xs={2} item>
+        <Grid  item width="94px">
           <Button fullWidth variant="outlined" onClick={onButtonClick}>
             Add
           </Button>

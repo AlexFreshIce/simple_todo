@@ -51,7 +51,7 @@ export const ItemTodo: FC<ItemTodoType> = ({ value, itemID, isLastItem, isChecke
     
 
   return (
-    <ListItem divider={!isLastItem} sx={{ pl: "0" }}>
+    <ListItem divider={!isLastItem} sx={{ pl: "0", pr:"6px" }}>
       <Checkbox checked={isChecked} onChange={onCheckBoxToggle}/>
       <textarea
         ref={textareaRef}
