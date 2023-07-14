@@ -1,12 +1,15 @@
 import { Button, Grid, Paper, TextField } from "@mui/material";
 import { ChangeEvent, FC, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store";
 import { todoAdd } from "../store/todoSlice";
 
 export const InputTodo: FC = () => {
   const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch<AppDispatch>();
+  const isDoneFilter = useSelector(
+    (state: RootState) => state.filter === "Done"
+  );
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -26,7 +29,7 @@ export const InputTodo: FC = () => {
     }
   };
 
-  return (
+  return isDoneFilter ? null : (
     <Paper
       elevation={3}
       sx={{

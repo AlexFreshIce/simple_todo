@@ -27,7 +27,7 @@ const initialState = {
         "Quo nisi ipsa provident eveniet dignissimos exercitationem hic dolorum sit officiis officia.",
     },
   ],
-  filter: "0",
+  filter: "All",
 };
 
 const todoSlice = createSlice({
@@ -54,8 +54,12 @@ const todoSlice = createSlice({
       );
       state.todos[index].isChecked = payload.value;
     },
+    filterChange: (state, { payload }) => {
+      state.filter = payload;
+    },
   },
 });
 
 export default todoSlice.reducer;
-export const { todoAdd, todoRemove, todoEdit, todoChecked } = todoSlice.actions;
+export const { todoAdd, todoRemove, todoEdit, todoChecked, filterChange } =
+  todoSlice.actions;

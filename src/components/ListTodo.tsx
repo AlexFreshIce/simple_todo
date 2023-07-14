@@ -7,7 +7,18 @@ import { TodoType } from "../store/todoSlice";
 import { ItemTodo } from "./ItemTodo";
 
 export const ListTodo: FC = () => {
-  const todos = useSelector((state: RootState) => state.todos);
+  const todos = useSelector((state: RootState) => {
+    switch (state.filter) {
+      case "All":
+        return state.todos;
+      case "Active":
+        return state.todos.filter((todo) => !todo.isChecked);
+      case "Done":
+        return state.todos.filter((todo) => todo.isChecked);
+      default:
+        return state.todos;
+    }
+  });
 
   return !todos.length ? null : (
     <Paper
