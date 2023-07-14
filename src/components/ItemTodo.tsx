@@ -6,15 +6,16 @@ import { Checkbox, IconButton, ListItem } from "@mui/material";
 import { ChangeEvent, FC, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
-import { todoEdit, todoRemove } from "../store/todoSlice";
+import { todoChecked, todoEdit, todoRemove } from "../store/todoSlice";
 
 type ItemTodoType = {
-  value: string;
   itemID: string;
+  value: string;
+  isChecked: boolean;
   isLastItem: boolean;
 };
 
-export const ItemTodo: FC<ItemTodoType> = ({ value, itemID, isLastItem }) => {
+export const ItemTodo: FC<ItemTodoType> = ({ value, itemID, isLastItem, isChecked }) => {
   const [todoValue, setTodoValue] = useState(value);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const dispatch = useDispatch<AppDispatch>();
@@ -44,9 +45,14 @@ export const ItemTodo: FC<ItemTodoType> = ({ value, itemID, isLastItem }) => {
     dispatch(todoRemove(itemID));
   };
 
+  const onCheckBoxToggle = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(todoChecked({id:itemID, value: e.target.checked}))
+  }
+    
+
   return (
     <ListItem divider={!isLastItem} sx={{ pl: "0" }}>
-      <Checkbox />
+      <Checkbox checked={isChecked} onChange={onCheckBoxToggle}/>
       <textarea
         ref={textareaRef}
         rows={1}

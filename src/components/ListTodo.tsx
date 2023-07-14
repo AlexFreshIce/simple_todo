@@ -3,10 +3,10 @@ import List from "@mui/material/List";
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import { TodoType } from "../store/todoSlice";
 import { ItemTodo } from "./ItemTodo";
 
 export const ListTodo: FC = () => {
-
   const todos = useSelector((state: RootState) => state.todos);
 
   return !todos.length ? null : (
@@ -17,12 +17,14 @@ export const ListTodo: FC = () => {
       }}
     >
       <List>
-        {todos.map((todo: any, index: number) => {
+        {todos.map((todo: TodoType, index: number) => {
           return (
             <ItemTodo
               key={todo.id}
-              value={todo.content}
               itemID={todo.id}
+              value={todo.content}
+              isChecked={todo.isChecked}
+              // isChecked = {true}
               isLastItem={index === todos.length - 1}
             />
           );

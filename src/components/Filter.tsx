@@ -2,15 +2,15 @@ import { Tab, Tabs } from "@mui/material";
 import { FC, useState } from "react";
 
 export const Filter: FC = () => {
-  const [value, setValue] = useState(0);
+  const [filterValue, setFilterValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setFilterValue(newValue);
   };
 
   return (
     <Tabs
-      value={value}
+      value={filterValue}
       onChange={handleChange}
       centered
       sx={{
