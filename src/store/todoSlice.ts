@@ -6,29 +6,15 @@ export type TodoType = {
   content: string;
 };
 
-const initialState = {
-  todos: [
-    {
-      id: "l0",
-      isChecked: false,
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nisi ipsa provident eveniet dignissimos exercitationem hic dolorum sit officiis officia.",
-    },
-    {
-      id: "i1",
-      isChecked: false,
-      content:
-        "ipsum dolor sit amet consectetur adipisicing elit. Quo nisi ipsa provident eveniet dignissimos exercitationem hic dolorum sit officiis officia.",
-    },
-    {
-      id: "q1",
-      isChecked: false,
-      content:
-        "Quo nisi ipsa provident eveniet dignissimos exercitationem hic dolorum sit officiis officia.",
-    },
-  ],
-  filter: "All",
+type TodoStateType = {
+  todos: TodoType[];
+  filter: string;
 };
+
+const initialState = {
+  todos: [],
+  filter: "All",
+} as TodoStateType;
 
 const todoSlice = createSlice({
   name: "todo",

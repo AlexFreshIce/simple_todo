@@ -75,15 +75,15 @@ export const ItemTodo: FC<ItemTodoType> = ({
           boxSizing: "border-box",
           fontFamily: "inherit",
           overflow:"hidden",
-          outlineColor:"#005fcc"
+          outlineColor:"#1976d2",
         }}
         value={todoValue}
         id={itemID}
         onChange={onTextAreaChange}
         onBlur={onTextAreaBlur}
         style={{
-          // textDecoration: isChecked ? "line-through" : "none",
-          filter: isChecked ? "opacity(0.3)" : "opacity(1)",
+          filter: isChecked ? "opacity(0.7)" : "opacity(1)",
+          fontWeight: isChecked ? "200" : "inherit",
         }}
       ></textarea>
       <IconButton
