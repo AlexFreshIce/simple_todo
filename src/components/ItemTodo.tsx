@@ -7,6 +7,7 @@ import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { todoChecked, todoEdit, todoRemove } from "../store/todoSlice";
+import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 
 type ItemTodoType = {
   itemID: string;
@@ -22,6 +23,7 @@ export const ItemTodo: FC<ItemTodoType> = ({
   isChecked,
 }) => {
   const [todoValue, setTodoValue] = useState(value);
+  const [editMode, setEditMode] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -37,18 +39,19 @@ export const ItemTodo: FC<ItemTodoType> = ({
     if (textareaRef && textareaRef.current) {
       textareaRef.current.readOnly = false;
       textareaRef.current.focus();
+      setEditMode(true);
     }
   };
-
-  const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setTodoValue(e.target.value);
-  };
-
-  const onTextAreaBlur = () => {
+  const onSaveButtonClick = () => {
     if (textareaRef && textareaRef.current) {
       textareaRef.current.readOnly = true;
       dispatch(todoEdit({ id: itemID, value: todoValue }));
     }
+    setEditMode(false);
+  };
+
+  const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setTodoValue(e.target.value);
   };
 
   const onDeleteButtonClick = () => {
@@ -74,15 +77,15 @@ export const ItemTodo: FC<ItemTodoType> = ({
           resize: "none",
           boxSizing: "border-box",
           fontFamily: "inherit",
-          overflow:"hidden",
-          outlineColor:"#1976d2",
+          overflow: "hidden",
+          outlineColor: "#1976d2",
         }}
         value={todoValue}
         id={itemID}
         onChange={onTextAreaChange}
-        onBlur={onTextAreaBlur}
+        onBlur={onSaveButtonClick}
         style={{
-          filter: isChecked ? "opacity(0.7)" : "opacity(1)",
+          filter: isChecked ? "opacity(0.8)" : "opacity(1)",
           fontWeight: isChecked ? "200" : "inherit",
         }}
       ></textarea>
@@ -91,9 +94,9 @@ export const ItemTodo: FC<ItemTodoType> = ({
         aria-label="delete"
         color="primary"
         sx={{ mr: "0.2rem" }}
-        onClick={onEditButtonClick}
+        onClick={editMode ? onSaveButtonClick : onEditButtonClick}
       >
-        <EditOutlinedIcon />
+        {editMode ? <SaveOutlinedIcon /> : <EditOutlinedIcon />}
       </IconButton>
       <IconButton
         edge="end"
