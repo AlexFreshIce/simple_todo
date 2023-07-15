@@ -23,9 +23,6 @@ export const ListTodo: FC = () => {
   return !todos.length ? null : (
     <Paper
       elevation={3}
-      sx={{
-        padding: "1rem",
-      }}
     >
       <List>
         {todos.map((todo: TodoType, index: number) => {
@@ -35,7 +32,6 @@ export const ListTodo: FC = () => {
               itemID={todo.id}
               value={todo.content}
               isChecked={todo.isChecked}
-              // isChecked = {true}
               isLastItem={index === todos.length - 1}
             />
           );

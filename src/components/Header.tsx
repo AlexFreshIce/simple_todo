@@ -3,12 +3,7 @@ import { FC } from "react";
 
 export const Header: FC = () => {
   return (
-    <AppBar
-      position="static"
-      sx={{
-        mb: "2rem",
-      }}
-    >
+    <AppBar position="static" sx={{ mb: "1.5rem" }}>
       <Toolbar>
         <Typography
           variant="h6"

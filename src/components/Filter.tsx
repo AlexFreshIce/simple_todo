@@ -29,12 +29,13 @@ export const Filter: FC = () => {
       onChange={handleChange}
       centered
       sx={{
-        mb: "2rem",
+        mb: "1.5rem",
+        fontWeight: "600" 
       }}
     >
-      <Tab label="All" />
-      <Tab label="Active" />
-      <Tab label="Done" />
+      <Tab label="All" sx={{ fontWeight: "inherit" }} />
+      <Tab label="Active" sx={{ fontWeight: "inherit" }} />
+      <Tab label="Done" sx={{ fontWeight: "inherit" }} />
     </Tabs>
   );
 };
