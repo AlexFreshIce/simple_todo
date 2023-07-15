@@ -21,9 +21,7 @@ export const ListTodo: FC = () => {
   });
 
   return !todos.length ? null : (
-    <Paper
-      elevation={3}
-    >
+    <Paper elevation={3} sx={{ mb: "2rem" }}>
       <List>
         {todos.map((todo: TodoType, index: number) => {
           return (

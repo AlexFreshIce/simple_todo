@@ -1,13 +1,12 @@
-/** @jsxImportSource @emotion/react */
-
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { Checkbox, IconButton, ListItem } from "@mui/material";
 import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { todoChecked, todoEdit, todoRemove } from "../store/todoSlice";
-import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
+import { CustomTextArea } from "./CustomTextArea";
 
 type ItemTodoType = {
   itemID: string;
@@ -39,6 +38,8 @@ export const ItemTodo: FC<ItemTodoType> = ({
     if (textareaRef && textareaRef.current) {
       textareaRef.current.readOnly = false;
       textareaRef.current.focus();
+      textareaRef.current.selectionStart = textareaRef.current.textLength;
+      textareaRef.current.selectionEnd = textareaRef.current.textLength;
       setEditMode(true);
     }
   };
@@ -65,30 +66,15 @@ export const ItemTodo: FC<ItemTodoType> = ({
   return (
     <ListItem divider={!isLastItem} sx={{ pl: "6px", pr: "1.1rem" }}>
       <Checkbox checked={isChecked} onChange={onCheckBoxToggle} />
-      <textarea
-        ref={textareaRef}
-        rows={1}
-        readOnly
-        css={{
-          display: "grid",
-          width: "100%",
-          fontSize: "1rem",
-          border: "none",
-          resize: "none",
-          boxSizing: "border-box",
-          fontFamily: "inherit",
-          overflow: "hidden",
-          outlineColor: "#1976d2",
-        }}
+      <CustomTextArea
+        textareaRef={textareaRef}
         value={todoValue}
         id={itemID}
-        onChange={onTextAreaChange}
-        onBlur={onSaveButtonClick}
-        style={{
-          filter: isChecked ? "opacity(0.8)" : "opacity(1)",
-          fontWeight: isChecked ? "200" : "inherit",
-        }}
-      ></textarea>
+        onTextAreaChange={onTextAreaChange}
+        onSaveButtonClick={onSaveButtonClick}
+        isChecked={isChecked}
+        isEditMode={editMode}
+      />
       <IconButton
         edge="end"
         aria-label="delete"
