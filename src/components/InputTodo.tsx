@@ -15,13 +15,6 @@ export const InputTodo: FC = () => {
     setInputValue(e.target.value);
   };
 
-  const onButtonClick = () => {
-    if (inputValue) {
-      dispatch(todoAdd(inputValue));
-      setInputValue("");
-    }
-  };
-
   const onInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter" && inputValue) {
       dispatch(todoAdd(inputValue));
@@ -29,14 +22,15 @@ export const InputTodo: FC = () => {
     }
   };
 
+  const onButtonClick = () => {
+    if (inputValue) {
+      dispatch(todoAdd(inputValue));
+      setInputValue("");
+    }
+  };
+
   return isDoneFilter ? null : (
-    <Paper
-      elevation={3}
-      sx={{
-        mb: "2rem",
-        padding: "1rem",
-      }}
-    >
+    <Paper elevation={3} sx={{ mb: "2rem", padding: "1rem" }}>
       <Grid container spacing={2}>
         <Grid xs item flexShrink={1}>
           <TextField
@@ -48,7 +42,7 @@ export const InputTodo: FC = () => {
             fullWidth
           />
         </Grid>
-        <Grid  item width="94px">
+        <Grid item width="94px">
           <Button fullWidth variant="outlined" onClick={onButtonClick}>
             Add
           </Button>
