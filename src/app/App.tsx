@@ -29,15 +29,10 @@ const GlobalStyles = css`
 `;
 
 const AppStyles = css({
-  display: "block",
-  width: "100%",
-  fontSize: "1rem",
-  border: "none",
-  resize: "none",
-  boxSizing: "border-box",
-  fontFamily: "inherit",
-  overflow: "hidden",
-  outlineColor: "#1976d2",
+  maxWidth: "840px",
+  minWidth: "320px",
+  margin: "auto",
+  padding: "0 10px",
 });
 
 export default function App() {
