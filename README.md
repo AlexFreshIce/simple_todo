@@ -1,3 +1,7 @@
-# Simple ToDo
+# Simple Todo List
 
 ## Autor: Lukyanau A.
+
+#### Tech stack: HTML, CSS, Emotion, JavaScript, Typescript, React, Redux toolkit, Redux Persist, Material UI. 
+  
+[Link](https://lucky-piroshki-d23ff8.netlify.app/)

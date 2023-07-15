@@ -74,6 +74,7 @@ export const ItemTodo: FC<ItemTodoType> = ({
           resize: "none",
           boxSizing: "border-box",
           fontFamily: "inherit",
+          overflow:"hidden"
         }}
         value={todoValue}
         id={itemID}
