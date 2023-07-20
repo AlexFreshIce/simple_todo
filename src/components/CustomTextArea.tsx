@@ -6,7 +6,6 @@ import { ChangeEvent, FC, LegacyRef } from "react";
 type CustomTextAreaType = {
   textareaRef: LegacyRef<HTMLTextAreaElement> | null;
   value: string;
-  id: string;
   onTextAreaChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onSaveButtonClick: () => void;
   isChecked: boolean;
@@ -29,7 +28,6 @@ export const CustomTextArea: FC<CustomTextAreaType> = (props) => {
   const {
     textareaRef,
     value,
-    id,
     onTextAreaChange,
     onSaveButtonClick,
     isChecked,
@@ -43,7 +41,6 @@ export const CustomTextArea: FC<CustomTextAreaType> = (props) => {
       readOnly
       autoComplete="on"
       value={value}
-      id={id}
       onChange={onTextAreaChange}
       onBlur={onSaveButtonClick}
       css={[

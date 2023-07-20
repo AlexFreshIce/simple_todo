@@ -1,14 +1,22 @@
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import DragHandleOutlinedIcon from "@mui/icons-material/DragHandleOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { Checkbox, IconButton, ListItem } from "@mui/material";
 import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { Draggable } from "react-beautiful-dnd";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../store";
-import { todoChecked, todoEdit, todoRemove } from "../store/todoSlice";
+import {
+  isFilterAllSelector,
+  todoChecked,
+  todoEdit,
+  todoRemove,
+} from "../store/todoSlice";
 import { CustomTextArea } from "./CustomTextArea";
 
 type ItemTodoType = {
+  index: number;
   itemID: string;
   value: string;
   isChecked: boolean;
@@ -16,6 +24,7 @@ type ItemTodoType = {
 };
 
 export const ItemTodo: FC<ItemTodoType> = ({
+  index,
   value,
   itemID,
   isLastItem,
@@ -25,6 +34,7 @@ export const ItemTodo: FC<ItemTodoType> = ({
   const [editMode, setEditMode] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const dispatch = useDispatch<AppDispatch>();
+  const isFilterAll = useSelector(isFilterAllSelector);
 
   useEffect(() => {
     if (textareaRef && textareaRef.current) {
@@ -64,34 +74,57 @@ export const ItemTodo: FC<ItemTodoType> = ({
   };
 
   return (
-    <ListItem divider={!isLastItem} sx={{ pl: "6px", pr: "1.1rem" }}>
-      <Checkbox checked={isChecked} onChange={onCheckBoxToggle} />
-      <CustomTextArea
-        textareaRef={textareaRef}
-        value={todoValue}
-        id={itemID}
-        onTextAreaChange={onTextAreaChange}
-        onSaveButtonClick={onSaveButtonClick}
-        isChecked={isChecked}
-        isEditMode={editMode}
-      />
-      <IconButton
-        edge="end"
-        aria-label="delete"
-        color="primary"
-        sx={{ mr: "0.2rem" }}
-        onClick={editMode ? onSaveButtonClick : onEditButtonClick}
-      >
-        {editMode ? <SaveOutlinedIcon /> : <EditOutlinedIcon />}
-      </IconButton>
-      <IconButton
-        edge="end"
-        aria-label="delete"
-        color="primary"
-        onClick={onDeleteButtonClick}
-      >
-        <DeleteOutlinedIcon />
-      </IconButton>
-    </ListItem>
+    <Draggable
+      key={itemID}
+      draggableId={itemID}
+      index={index}
+      isDragDisabled={!isFilterAll}
+    >
+      {(provided) => (
+        <ListItem
+          divider={!isLastItem}
+          sx={{ p: "0.5rem 0.25rem" }}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+        >
+          <Checkbox checked={isChecked} onChange={onCheckBoxToggle} />
+
+          <CustomTextArea
+            textareaRef={textareaRef}
+            value={todoValue}
+            onTextAreaChange={onTextAreaChange}
+            onSaveButtonClick={onSaveButtonClick}
+            isChecked={isChecked}
+            isEditMode={editMode}
+          />
+
+          <IconButton
+            aria-label={editMode ? "save" : "edit"}
+            color="primary"
+            onClick={editMode ? onSaveButtonClick : onEditButtonClick}
+          >
+            {editMode ? <SaveOutlinedIcon /> : <EditOutlinedIcon />}
+          </IconButton>
+
+          <IconButton
+            aria-label="delete"
+            color="primary"
+            onClick={onDeleteButtonClick}
+          >
+            <DeleteOutlinedIcon />
+          </IconButton>
+
+          {isFilterAll ? (
+            <IconButton
+              aria-label="drag"
+              color="primary"
+              {...provided.dragHandleProps}
+            >
+              <DragHandleOutlinedIcon />
+            </IconButton>
+          ) : null}
+        </ListItem>
+      )}
+    </Draggable>
   );
 };
