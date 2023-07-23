@@ -48,14 +48,17 @@ export default function App() {
   const Global = {
     html: {
       fontSize: "110%",
-      [theme.breakpoints.down("lg")]: {
+      [theme.breakpoints.down("xl")]: {
         fontSize: "100%",
+      },
+      [theme.breakpoints.down("lg")]: {
+        fontSize: "95%",
       },
       [theme.breakpoints.down("md")]: {
         fontSize: "90%",
       },
       [theme.breakpoints.down("sm")]: {
-        fontSize: "80%",
+        fontSize: "85%",
       },
     },
   };

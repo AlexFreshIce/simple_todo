@@ -22,11 +22,11 @@ const StyledTextArea = styled(TextareaAutosize, {
     boxSizing: "border-box",
     fontFamily: `${theme.typography.fontFamily}`,
     overflow: "hidden",
-    outlineColor: "#1976d2",
     background: "inherit",
     color: `${theme.palette.text.primary}`,
     fontSize: `1rem`,
     outline: isEditMode ? "auto" : "none",
+    outlineColor: theme.palette.primary.main,
     opacity: isChecked ? "0.8" : "1",
     fontWeight: isChecked ? "200" : "inherit",
   })
