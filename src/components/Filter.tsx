@@ -28,7 +28,7 @@ export const Filter: FC = () => {
       value={filterValue}
       onChange={handleChange}
       centered
-      sx={{ mb: "1.5rem", fontWeight: "600" }}
+      sx={{ mb: "1.5rem", fontWeight: "700", }}
     >
       <Tab label="All" sx={{ fontWeight: "inherit" }} />
       <Tab label="Active" sx={{ fontWeight: "inherit" }} />

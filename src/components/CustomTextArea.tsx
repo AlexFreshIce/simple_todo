@@ -1,10 +1,9 @@
-/** @jsxImportSource @emotion/react */
-
-import { css } from "@emotion/react";
-import { ChangeEvent, FC, LegacyRef } from "react";
+import { TextareaAutosize } from "@mui/base";
+import { styled } from "@mui/material/styles";
+import { ChangeEvent, FC, MutableRefObject } from "react";
 
 type CustomTextAreaType = {
-  textareaRef: LegacyRef<HTMLTextAreaElement> | null;
+  textareaRef: MutableRefObject<HTMLTextAreaElement | null>;
   value: string;
   onTextAreaChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onSaveButtonClick: () => void;
@@ -12,17 +11,26 @@ type CustomTextAreaType = {
   isEditMode: boolean;
 };
 
-const CustomTextAreaStyles = css({
-  display: "block",
-  width: "100%",
-  fontSize: "1rem",
-  border: "none",
-  resize: "none",
-  boxSizing: "border-box",
-  fontFamily: "inherit",
-  overflow: "hidden",
-  outlineColor: "#1976d2",
-});
+const StyledTextArea = styled(TextareaAutosize, {
+  shouldForwardProp: (prop) => prop !== "isEditMode" && prop !== "isChecked",
+})<{ isEditMode: boolean; isChecked: boolean }>(
+  ({ theme, isEditMode, isChecked }) => ({
+    display: "block",
+    width: "100%",
+    border: "none",
+    resize: "none",
+    boxSizing: "border-box",
+    fontFamily: `${theme.typography.fontFamily}`,
+    overflow: "hidden",
+    outlineColor: "#1976d2",
+    background: "inherit",
+    color: `${theme.palette.text.primary}`,
+    fontSize: `1rem`,
+    outline: isEditMode ? "auto" : "none",
+    opacity: isChecked ? "0.8" : "1",
+    fontWeight: isChecked ? "200" : "inherit",
+  })
+);
 
 export const CustomTextArea: FC<CustomTextAreaType> = (props) => {
   const {
@@ -30,27 +38,20 @@ export const CustomTextArea: FC<CustomTextAreaType> = (props) => {
     value,
     onTextAreaChange,
     onSaveButtonClick,
-    isChecked,
-    isEditMode,
+    isChecked = false,
+    isEditMode = false,
   } = props;
 
   return (
-    <textarea
+    <StyledTextArea
       ref={textareaRef}
-      rows={1}
       readOnly
       autoComplete="on"
       value={value}
       onChange={onTextAreaChange}
       onBlur={onSaveButtonClick}
-      css={[
-        {
-          outline: isEditMode ? "auto" : "none",
-          opacity: isChecked ? "0.8" : "1",
-          fontWeight: isChecked ? "200" : "inherit",
-        },
-        CustomTextAreaStyles,
-      ]}
-    ></textarea>
+      isChecked={isChecked}
+      isEditMode={isEditMode}
+    ></StyledTextArea>
   );
 };

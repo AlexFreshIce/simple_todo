@@ -3,7 +3,7 @@ import DragHandleOutlinedIcon from "@mui/icons-material/DragHandleOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { Checkbox, IconButton, ListItem } from "@mui/material";
-import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FC, useRef, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../store";
@@ -35,14 +35,6 @@ export const ItemTodo: FC<ItemTodoType> = ({
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const isFilterAll = useSelector(isFilterAllSelector);
-
-  useEffect(() => {
-    if (textareaRef && textareaRef.current) {
-      textareaRef.current.style.height = "0px";
-      const scrollHeight = textareaRef.current.scrollHeight;
-      textareaRef.current.style.height = scrollHeight + "px";
-    }
-  }, [value]);
 
   const onEditButtonClick = () => {
     if (textareaRef && textareaRef.current) {
