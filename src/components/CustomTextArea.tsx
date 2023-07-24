@@ -27,9 +27,9 @@ const StyledTextArea = styled(TextareaAutosize, {
     fontSize: `1rem`,
     opacity: isChecked ? "0.8" : "1",
     fontWeight: isChecked ? "300" : "inherit",
+    outlineColor: theme.palette.primary.main,
     ":focus": {
-      outline: isEditMode ? "auto" : "0",
-      outlineColor: theme.palette.primary.main,
+      outline: isEditMode ? "1" : "0",
       color: isEditMode ? "inherit" : theme.palette.primary.main,
     },
   })
