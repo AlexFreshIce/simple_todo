@@ -21,6 +21,7 @@ type ItemTodoType = {
   value: string;
   isChecked: boolean;
   isLastItem: boolean;
+  isAllowDrag: boolean;
 };
 
 export const ItemTodo: FC<ItemTodoType> = ({
@@ -29,6 +30,7 @@ export const ItemTodo: FC<ItemTodoType> = ({
   itemID,
   isLastItem,
   isChecked,
+  isAllowDrag,
 }) => {
   const [todoValue, setTodoValue] = useState(value);
   const [editMode, setEditMode] = useState(false);
@@ -70,7 +72,7 @@ export const ItemTodo: FC<ItemTodoType> = ({
       key={itemID}
       draggableId={itemID}
       index={index}
-      isDragDisabled={!isFilterAll}
+      isDragDisabled={!isAllowDrag || !isFilterAll}
     >
       {(provided) => (
         <ListItem
@@ -106,7 +108,7 @@ export const ItemTodo: FC<ItemTodoType> = ({
             <DeleteOutlinedIcon />
           </IconButton>
 
-          {isFilterAll ? (
+          {isFilterAll && isAllowDrag ? (
             <IconButton
               aria-label="drag"
               color="primary"
