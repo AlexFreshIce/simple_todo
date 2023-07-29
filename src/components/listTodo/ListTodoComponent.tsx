@@ -1,36 +1,14 @@
 import { Paper } from "@mui/material";
 import List from "@mui/material/List";
-import { FC, useState } from "react";
-import {
-  DragDropContext,
-  Droppable,
-  OnDragEndResponder,
-} from "react-beautiful-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../store";
-import {
-  TodoType,
-  filteredTodosSelector,
-  todosReorder,
-} from "../store/todoSlice";
-import { ItemTodo } from "./ItemTodo";
-import { SwitchDrag } from "./SwitchDrag";
+import { FC } from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { TodoType } from "../../store/types";
+import { ItemTodo } from "../itemTodo";
+import { SwitchDrag } from "../switchDrag";
+import { ListTodoComponentType } from "./types";
 
-export const ListTodo: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const [isAllowDrag, setIsAllowDrag] = useState(false);
-  const todos = useSelector(filteredTodosSelector);
-
-  const onDragEnd: OnDragEndResponder = (result) => {
-    if (!result.destination) return;
-    const items = Array.from(todos);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    dispatch(todosReorder(items));
-  };
-
-  const onSwitchChange = () => setIsAllowDrag((prevChecked) => !prevChecked);
-
+export const ListTodoComponent: FC<ListTodoComponentType> = (props) => {
+  const { todos, isAllowDrag, onDragEnd, onSwitchChange } = props;
   return todos.length ? (
     <>
       <SwitchDrag isChecked={isAllowDrag} onSwitchChange={onSwitchChange} />

@@ -3,69 +3,28 @@ import DragHandleOutlinedIcon from "@mui/icons-material/DragHandleOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { Checkbox, IconButton, ListItem } from "@mui/material";
-import { ChangeEvent, FC, useRef, useState } from "react";
+import { FC } from "react";
 import { Draggable } from "react-beautiful-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../store";
-import {
-  isFilterAllSelector,
-  todoChecked,
-  todoEdit,
-  todoRemove,
-} from "../store/todoSlice";
-import { CustomTextArea } from "./CustomTextArea";
+import { CustomTextArea } from "../customTextArea";
+import { ItemTodoComponentType } from "./types";
 
-type ItemTodoType = {
-  index: number;
-  itemID: string;
-  value: string;
-  isChecked: boolean;
-  isLastItem: boolean;
-  isAllowDrag: boolean;
-};
-
-export const ItemTodo: FC<ItemTodoType> = ({
-  index,
-  value,
-  itemID,
-  isLastItem,
-  isChecked,
-  isAllowDrag,
-}) => {
-  const [todoValue, setTodoValue] = useState(value);
-  const [editMode, setEditMode] = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const dispatch = useDispatch<AppDispatch>();
-  const isFilterAll = useSelector(isFilterAllSelector);
-
-  const onEditButtonClick = () => {
-    if (textareaRef && textareaRef.current) {
-      textareaRef.current.readOnly = false;
-      textareaRef.current.focus();
-      textareaRef.current.selectionStart = textareaRef.current.textLength;
-      textareaRef.current.selectionEnd = textareaRef.current.textLength;
-      setEditMode(true);
-    }
-  };
-  const onSaveButtonClick = () => {
-    if (textareaRef && textareaRef.current) {
-      textareaRef.current.readOnly = true;
-      dispatch(todoEdit({ id: itemID, value: todoValue }));
-    }
-    setEditMode(false);
-  };
-
-  const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setTodoValue(e.target.value);
-  };
-
-  const onDeleteButtonClick = () => {
-    dispatch(todoRemove(itemID));
-  };
-
-  const onCheckBoxToggle = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(todoChecked({ id: itemID, value: e.target.checked }));
-  };
+export const ItemTodoComponent: FC<ItemTodoComponentType> = (props) => {
+  const {
+    index,
+    todoValue,
+    itemID,
+    isLastItem,
+    isChecked,
+    isAllowDrag,
+    textareaRef,
+    isFilterAll,
+    editMode,
+    onEditButtonClick,
+    onSaveButtonClick,
+    onTextAreaChange,
+    onDeleteButtonClick,
+    onCheckBoxToggle,
+  } = props;
 
   return (
     <Draggable

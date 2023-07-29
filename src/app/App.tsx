@@ -2,10 +2,10 @@ import { CssBaseline, GlobalStyles, useMediaQuery } from "@mui/material";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
 import { createContext, useEffect, useMemo, useState } from "react";
 import "typeface-roboto";
-import { Filter } from "../components/Filter";
-import { Header } from "../components/Header";
-import { InputTodo } from "../components/InputTodo";
-import { ListTodo } from "../components/ListTodo";
+import { ListTodo } from "../components/listTodo";
+import { Filter } from "../components/filter";
+import { Header } from "../components/header";
+import { InputTodo } from "../components/inputTodo";
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 

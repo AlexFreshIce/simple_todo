@@ -1,8 +1,7 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { FC } from "react";
-import { ToggleTheme } from "./ToggleTheme";
+import { ToggleTheme } from "../toggleTheme";
 
-export const Header: FC = () => {
+export const HeaderComponent = () => {
   return (
     <AppBar
       position="relative"
