@@ -1,21 +1,27 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { FC } from "react";
+import { ToggleTheme } from "../toggleTheme";
 
-export const Header: FC = () => {
+export const HeaderComponent = () => {
   return (
     <AppBar
       position="relative"
-      sx={{ mb: "1.5rem", width: `calc(100% + 20px)`, left: "-10px" }}
+      sx={(theme) => ({
+        mb: "1.5rem",
+        width: `calc(100% + 20px)`,
+        left: "-10px",
+        backgroundColor: theme.palette.primary.dark,
+      })}
     >
       <Toolbar>
         <Typography
           variant="h6"
           component="h1"
           align="center"
-          sx={{ flexGrow: 1 }}
+          sx={{ flexGrow: 1, pl: `51px` }}
         >
           Simple Todo List
         </Typography>
+        <ToggleTheme />
       </Toolbar>
     </AppBar>
   );

@@ -1,15 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-export type TodoType = {
-  id: string;
-  isChecked: boolean;
-  content: string;
-};
-
-type TodoStateType = {
-  todos: TodoType[];
-  filter: string;
-};
+import { RootState } from ".";
+import { TodoStateType, TodoType } from "./types";
 
 const initialState = {
   todos: [],
@@ -40,6 +31,9 @@ const todoSlice = createSlice({
       );
       state.todos[index].isChecked = payload.value;
     },
+    todosReorder: (state, { payload }) => {
+      state.todos = payload;
+    },
     filterChange: (state, { payload }) => {
       state.filter = payload;
     },
@@ -47,5 +41,27 @@ const todoSlice = createSlice({
 });
 
 export default todoSlice.reducer;
-export const { todoAdd, todoRemove, todoEdit, todoChecked, filterChange } =
-  todoSlice.actions;
+export const {
+  todoAdd,
+  todoRemove,
+  todoEdit,
+  todoChecked,
+  filterChange,
+  todosReorder,
+} = todoSlice.actions;
+
+export const filteredTodosSelector = (state: RootState) => {
+  switch (state.filter) {
+    case "All":
+      return state.todos;
+    case "Active":
+      return state.todos.filter((todo) => !todo.isChecked);
+    case "Done":
+      return state.todos.filter((todo) => todo.isChecked);
+    default:
+      return state.todos;
+  }
+};
+
+export const filterSelector = (state: RootState) => state.filter;
+export const isFilterAllSelector = (state: RootState) => state.filter === "All";
