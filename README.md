@@ -1,6 +1,6 @@
 # Simple Todo List
 
-## Autor: Lukyanau A.
+## Autor: Lukyanov A.
 
 #### Tech stack: HTML, CSS, Emotion, JavaScript, Typescript, React, Redux toolkit, Redux Persist, Material UI. 
   
